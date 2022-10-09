@@ -7,7 +7,7 @@ import React from 'react';
 import {useState,useEffect} from 'react'
 import { List } from "./list"
 import { SearchPanel } from "./search-panel"
-import {cleanObject} from '../utils/index'
+import {cleanObject,useDebounce,useMount} from '../utils/index'
 import  qs from 'qs'
 
 //执行npm start 就是本地开发（.env.development）
@@ -17,22 +17,24 @@ const apiUrl=process.env.REACT_APP_API_URL
 export const  ProjectListScreen=()=>{
     const [users,setUsers]=useState([])//展示所有的负责人
     const [param,setParam]=useState({name:'',personId:''})//搜索面板参数
+    const debouncedParam=useDebounce(param,1000)//防抖动，一秒后才请求
     const [list,setList]=useState([])//返回筛选的负责人
     //fetch（‘url’）.then,fetch获取接口,返回一个promise，所以需要then来处理
     useEffect(()=>{
-        fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(param))}`).then(async response=>{
+        fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(debouncedParam))}`).then(async response=>{
             if(response.ok){
                 setList(await response.json())
             }
         })
-    },[param])
-    useEffect(()=>{
+    },[debouncedParam])
+    //组件加载时，只执行一次
+    useMount(()=>{
         fetch(`${apiUrl}/users`).then(async response=>{
             if(response.ok){
                 setUsers(await response.json())
             }
         }) 
-    },[])
+    })
     return <div>
         <SearchPanel users={users} param={param} setParam={setParam}/>
         <List users={users} list={list}/>
