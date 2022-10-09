@@ -3,14 +3,16 @@
 import { useEffect, useState } from "react";
 
 //！value：表示对value取反；！！value：表示把value转化成布尔值
-export const isFalsy = (value) => (value === 0 ? true : !value);
+export const isFalsy = (value: any) => (value === 0 ? true : !value);
 //在一个函数里，改变传入的对象本身是不好的（不要污染传入的对象）
-export const cleanObject = (object) => {
+export const cleanObject = (object: object) => {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
+    //@ts-ignore
     const value = result[key]; //拿到key对应的value
     //排除value为0的情况(0为有效的值，不能delete)
     if (isFalsy(value)) {
+      //@ts-ignore
       delete result[key];
     }
   });
@@ -18,14 +20,14 @@ export const cleanObject = (object) => {
 };
 
 //useMount（Custom Hook）
-export const useMount = (callback) => {
+export const useMount = (callback: any) => {
   useEffect(() => {
     callback();
   }, []);
 };
 
 //useDebounce(Custom Hook)
-export const useDebounce = (value, delay) => {
+export const useDebounce = (value: any, delay?: number) => {
   const [debounceValue, setDebounceValue] = useState(value);
   useEffect(() => {
     //每次在value变化后，设置一个定时器
