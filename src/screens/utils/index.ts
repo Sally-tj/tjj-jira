@@ -1,9 +1,8 @@
 //处理对象的空值
-
 import { useEffect, useState } from "react";
 
 //！value：表示对value取反；！！value：表示把value转化成布尔值
-export const isFalsy = (value: any) => (value === 0 ? true : !value);
+export const isFalsy = (value: unknown) => (value === 0 ? true : !value);
 //在一个函数里，改变传入的对象本身是不好的（不要污染传入的对象）
 export const cleanObject = (object: object) => {
   const result = { ...object };
@@ -27,7 +26,8 @@ export const useMount = (callback: any) => {
 };
 
 //useDebounce(Custom Hook)
-export const useDebounce = (value: any, delay?: number) => {
+//用泛型来规范类型
+export const useDebounce = <V>(value: V, delay?: number) => {
   const [debounceValue, setDebounceValue] = useState(value);
   useEffect(() => {
     //每次在value变化后，设置一个定时器
@@ -36,4 +36,20 @@ export const useDebounce = (value: any, delay?: number) => {
     return () => clearTimeout(timeout);
   }, [value, delay]);
   return debounceValue;
+};
+
+//实现增删数据
+export const useArray = <T>(initialArray: T[]) => {
+  const [value, setValue] = useState(initialArray);
+  return {
+    value,
+    setValue,
+    add: (item: T) => setValue([...value, item]),
+    clear: () => setValue([]),
+    removeIndex: (index: number) => {
+      const copy = [...value];
+      copy.splice(index, 1);
+      setValue(copy);
+    },
+  };
 };
