@@ -6,6 +6,7 @@ export interface User {
   email: string;
   title: string;
   organization: string;
+  token: string;
 }
 
 //给传来的形参规定具体的类型（接口相当于说明书）
