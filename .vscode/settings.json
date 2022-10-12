@@ -2,5 +2,5 @@
     "cSpell.words": [
         "middlewares"
     ],
-    "editor.formatOnSave": true
+    "editor.formatOnSave": false
 }

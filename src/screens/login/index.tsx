@@ -1,21 +1,20 @@
+/*
+ * @Author: tj
+ * @Description: 登录页面
+ * @Date: 2022-10-11 14:16:27
+ */
+import { useAuth } from "context/context";
 import React, { FormEvent } from "react";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export default function login() {
-  //登录
-  const login = (param: { username: string; password: string }) => {
-    fetch(`${apiUrl}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(param),
-    }).then(async (response: Response) => {
-      if (response.ok) {
-      }
-    });
-  };
+export default function Login() {
+  //在任何地方都可以通过useAuth()来调用login, register, logout，读取user
+  const info = useAuth();
+  if (info instanceof Error) {
+    return null;
+  }
+
   // 提交表单
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     //阻止表单提交的默认行为
@@ -26,11 +25,17 @@ export default function login() {
     const password = (event.currentTarget.elements[1] as HTMLInputElement)
       .value;
     //调用login
-    login({ username, password });
+    info.login({ username, password });
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {info.user ? (
+        <div>
+          已登录，登录名为{info.user?.name}
+          <div>token:{info.user?.token}</div>
+        </div>
+      ) : null}
       <div>
         <label htmlFor="username">用户名</label>
         <input type="text" id={"username"} />

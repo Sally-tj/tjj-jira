@@ -1,3 +1,8 @@
+/*
+ * @Author: tj
+ * @Description:
+ * @Date: 2022-10-11 16:44:54
+ */
 //如果在真实环境，如果使用firebase这种第三方auth服务的话，本文件不需要开发者开发
 import { User } from "screens/project-list/search-panel";
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -15,7 +20,7 @@ export const handelUserResponse = ({ user }: { user: User }) => {
 
 //登录
 export const login = (data: { username: string; password: string }) => {
-  return fetch(`${apiUrl}?/login`, {
+  return fetch(`${apiUrl}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,13 +29,15 @@ export const login = (data: { username: string; password: string }) => {
   }).then(async (response: Response) => {
     if (response.ok) {
       return handelUserResponse(await response.json());
+    } else {
+      return Promise.reject(data);
     }
   });
 };
 
 //注册
 export const register = (data: { username: string; password: string }) => {
-  return fetch(`${apiUrl}?/register`, {
+  return fetch(`${apiUrl}/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -39,9 +46,13 @@ export const register = (data: { username: string; password: string }) => {
   }).then(async (response: Response) => {
     if (response.ok) {
       return handelUserResponse(await response.json());
+    } else {
+      return Promise.reject(data);
     }
   });
 };
 
-//退出登录
-export const logout = window.localStorage.removeItem(localStorageKey);
+//退出登录(在参数前加个async，返回的就一定是promise)
+export const logout = async () => {
+  window.localStorage.removeItem(localStorageKey);
+};
