@@ -4,7 +4,7 @@
  * @Date: 2022-10-11 14:16:27
  */
 import { AuthenticatedApp } from "authenticated-app";
-import { useAuth } from "context/context";
+import { useAuth } from "context/auth-context";
 import { UnauthenticatedApp } from "unauthenticated-app.tsx";
 
 function App() {

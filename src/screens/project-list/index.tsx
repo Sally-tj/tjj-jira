@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { List } from "./list";
 import { SearchPanel } from "./search-panel";
 import { cleanObject, useDebounce, useMount } from "../utils/index";
-import * as qs from "qs";
+import { useHttp } from "screens/utils/http";
 
 //执行npm start 就是本地开发（.env.development）
 //执行npm run build 就是上线（.env）
@@ -19,24 +19,17 @@ export const ProjectListScreen = () => {
   const [param, setParam] = useState({ name: "", personId: "" }); //搜索面板参数
   const debouncedParam = useDebounce(param, 200); //防抖动，一秒后才请求
   const [list, setList] = useState([]); //返回筛选的负责人
-  //fetch（‘url’）.then,fetch获取接口,返回一个promise，所以需要then来处理
+
+  const client = useHttp();
   useEffect(() => {
-    fetch(
-      `${apiUrl}/projects?${qs.stringify(cleanObject(debouncedParam))}`
-    ).then(async (response) => {
-      if (response.ok) {
-        setList(await response.json());
-      }
-    });
+    client("projects", { data: cleanObject(debouncedParam) }).then(setList);
   }, [debouncedParam]);
+
   //组件加载时，只执行一次
   useMount(() => {
-    fetch(`${apiUrl}/users`).then(async (response) => {
-      if (response.ok) {
-        setUsers(await response.json());
-      }
-    });
+    client("users").then(setUsers);
   });
+
   return (
     <div>
       <SearchPanel users={users} param={param} setParam={setParam} />

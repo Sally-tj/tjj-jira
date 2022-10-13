@@ -1,4 +1,4 @@
-import { useAuth } from "context/context";
+import { useAuth } from "context/auth-context";
 import { ProjectListScreen } from "screens/project-list";
 
 //authenticated：已登录的用户

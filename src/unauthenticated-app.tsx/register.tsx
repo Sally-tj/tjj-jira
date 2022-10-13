@@ -3,7 +3,7 @@
  * @Description: 注册页面
  * @Date: 2022-10-11 14:16:27
  */
-import { useAuth } from "context/context";
+import { useAuth } from "context/auth-context";
 import { FormEvent } from "react";
 
 const apiUrl = process.env.REACT_APP_API_URL;

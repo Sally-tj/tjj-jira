@@ -1,6 +1,6 @@
 /*
  * @Author: tj
- * @Description:
+ * @Description: auth-provider
  * @Date: 2022-10-11 16:44:54
  */
 //如果在真实环境，如果使用firebase这种第三方auth服务的话，本文件不需要开发者开发
@@ -9,8 +9,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 const localStorageKey = "__auth_provider_token__";
 
-export const getToken = () => {
-  window.localStorage.getItem(localStorageKey);
+export const getToken = (): string => {
+  return window?.localStorage?.getItem(localStorageKey) ?? "";
 };
 
 export const handelUserResponse = ({ user }: { user: User }) => {
@@ -53,6 +53,6 @@ export const register = (data: { username: string; password: string }) => {
 };
 
 //退出登录(在参数前加个async，返回的就一定是promise)
-export const logout = async () => {
-  window.localStorage.removeItem(localStorageKey);
+export const logout = async (): Promise<void> => {
+  return window.localStorage.removeItem(localStorageKey);
 };

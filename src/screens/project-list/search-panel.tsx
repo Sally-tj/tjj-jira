@@ -20,7 +20,6 @@ interface SearchPanelProps {
 }
 
 export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
-  console.log("param1", param);
   return (
     <form>
       <div>

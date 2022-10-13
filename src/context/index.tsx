@@ -5,7 +5,7 @@
  */
 
 import { ReactNode } from "react";
-import { AuthProvider } from "./context";
+import { AuthProvider } from "./auth-context";
 
 interface PropsType {
   children: ReactNode;
