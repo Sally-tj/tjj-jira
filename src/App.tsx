@@ -3,13 +3,18 @@
  * @Description:
  * @Date: 2022-10-11 14:16:27
  */
-import React from "react";
-import Login from "screens/login";
+import { AuthenticatedApp } from "authenticated-app";
+import { useAuth } from "context/context";
+import { UnauthenticatedApp } from "unauthenticated-app.tsx";
 
 function App() {
+  const info = useAuth();
+  if (info instanceof Error) {
+    return null;
+  }
   return (
     <div className="App">
-      <Login />
+      {info.user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
     </div>
   );
 }

@@ -14,6 +14,8 @@ export default function Login() {
   if (info instanceof Error) {
     return null;
   }
+  const login = info.login;
+  const user = info.user;
 
   // 提交表单
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -25,17 +27,17 @@ export default function Login() {
     const password = (event.currentTarget.elements[1] as HTMLInputElement)
       .value;
     //调用login
-    info.login({ username, password });
+    login({ username, password });
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      {info.user ? (
+      {/* {user ? (
         <div>
-          已登录，登录名为{info.user?.name}
-          <div>token:{info.user?.token}</div>
+          已登录，登录名为{user.name}
+          <div>token:{user.token}</div>
         </div>
-      ) : null}
+      ) : null} */}
       <div>
         <label htmlFor="username">用户名</label>
         <input type="text" id={"username"} />

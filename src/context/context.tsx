@@ -27,7 +27,7 @@ const AuthContext = React.createContext<
 AuthContext.displayName = "AuthContext";
 
 //处理主要逻辑
-export const AuthProvider = (props: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   //定义user
   const [user, setUser] = useState<User | null>(null);
   //登录（调用login接口）
@@ -43,9 +43,10 @@ export const AuthProvider = (props: { children: ReactNode }) => {
     auth.logout().then(() => setUser(null));
   };
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
-      {props.children}
-    </AuthContext.Provider>
+    <AuthContext.Provider
+      children={children}
+      value={{ user, login, register, logout }}
+    />
   );
 };
 
