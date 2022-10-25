@@ -6,9 +6,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { loadDevTools } from "jira-dev-tool";
+// 将antd的引入放在jira-dev-tool的后面，可以保证后面写的antd会覆盖前面的jira-dev-tool里面的antd
+import "antd/dist/antd.less";
 import { AppProviders } from "./context";
 
 loadDevTools(() =>
