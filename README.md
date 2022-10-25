@@ -1,8 +1,11 @@
-#1.控制台警告#
-Failed to parse source map: 'webpack://antd/./components/config-provider/style/index.less' URL is not supported
+<!--
+ * @Author: tj
+ * @Description: 待解决错误集
+ * @Date: 2022-08-30 21:40:34
+-->
 
-Failed to parse source map: 'webpack://antd/./components/icon/style/index.less' URL is not supported
+#定位不到哪里需要 key
+react_devtools_backend.js:4026 Warning: Each child in a list should have a unique "key" prop.
 
-Failed to parse source map: 'webpack://antd/./components/locale-provider/style/index.less' URL is not supported
-
-Failed to parse source map: 'webpack://antd/./components/time-picker/style/index.less' URL is not supported
+#找不到正确答案
+[antd: Drawer] `visible` is deprecated which will be removed in next major version, please use `open` instead.

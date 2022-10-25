@@ -23,6 +23,7 @@ export const ProjectListScreen = () => {
   const client = useHttp();
   useEffect(() => {
     client("projects", { data: cleanObject(debouncedParam) }).then(setList);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedParam]);
 
   //组件加载时，只执行一次
@@ -31,7 +32,8 @@ export const ProjectListScreen = () => {
   });
 
   return (
-    <div>
+    <div style={{ padding: "3.2rem" }}>
+      <h1>项目列表</h1>
       <SearchPanel users={users} param={param} setParam={setParam} />
       <List users={users} list={list} />
     </div>

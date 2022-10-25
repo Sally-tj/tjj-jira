@@ -6,6 +6,7 @@
 
 import { ReactNode } from "react";
 import { AuthProvider } from "./auth-context";
+import { QueryClientProvider, QueryClient } from "react-query";
 
 interface PropsType {
   children: ReactNode;
@@ -13,5 +14,9 @@ interface PropsType {
 
 //作为根，将整个App包裹住
 export const AppProviders = (props: PropsType) => {
-  return <AuthProvider>{props.children}</AuthProvider>;
+  return (
+    <QueryClientProvider client={new QueryClient()}>
+      <AuthProvider>{props.children}</AuthProvider>;
+    </QueryClientProvider>
+  );
 };

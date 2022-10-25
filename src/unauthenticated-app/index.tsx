@@ -19,9 +19,9 @@ export const UnauthenticatedApp = () => {
       <Card className="unauthenticated-card-wrapper">
         <h2 className="title">{isRegister ? "请登录" : "请注册"}</h2>
         {isRegister ? <Login /> : <Register />}
-        <a onClick={() => setIsRegister(!isRegister)}>
+        <Button type={"link"} onClick={() => setIsRegister(!isRegister)}>
           {isRegister ? "已经有账号了？直接登录" : "没有账号？注册新账号"}
-        </a>
+        </Button>
       </Card>
     </div>
   );

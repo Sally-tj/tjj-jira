@@ -3,9 +3,9 @@
  * @Description:
  * @Date: 2022-10-11 14:16:27
  */
-import { AuthenticatedApp } from "authenticated-app/authenticated-app";
+import { AuthenticatedApp } from "authenticated-app/index";
 import { useAuth } from "context/auth-context";
-import { UnauthenticatedApp } from "unauthenticated-app.tsx";
+import { UnauthenticatedApp } from "unauthenticated-app";
 import "./App.css";
 
 function App() {

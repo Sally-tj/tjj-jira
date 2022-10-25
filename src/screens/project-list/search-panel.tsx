@@ -1,10 +1,10 @@
 /*
  * @Author: tj
- * @Description:
+ * @Description: 项目搜索列表
  * @Date: 2022-10-11 14:16:27
  */
-import { Input, Select } from "antd";
-import React from "react";
+import { Form, Input, Select } from "antd";
+import { useEffect, useState } from "react";
 
 export interface User {
   id: string;
@@ -26,10 +26,26 @@ interface SearchPanelProps {
 }
 
 export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
+  const [listOption, setListOption] = useState<object[]>([]);
+
+  useEffect(() => {
+    listOptionHandel();
+  }, [users]);
+
+  const listOptionHandel = () => {
+    let listOptionData = users.map((item: any) => ({
+      value: item.id,
+      label: item.name,
+    }));
+    listOptionData.unshift({ value: "", label: "负责人" });
+    setListOption(listOptionData);
+  };
+
   return (
-    <form>
-      <div>
+    <Form layout="inline" style={{ marginBottom: "2rem" }}>
+      <Form.Item>
         <Input
+          placeholder="项目名"
           type="text"
           value={param.name}
           onChange={(evt) => {
@@ -39,7 +55,10 @@ export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
             });
           }}
         />
+      </Form.Item>
+      <Form.Item>
         <Select
+          style={{ width: "10rem" }}
           value={param.personId}
           onChange={(value) => {
             setParam({
@@ -47,15 +66,9 @@ export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
               personId: value,
             });
           }}
-        >
-          <option value={""}>负责人</option>
-          {users.map((users) => (
-            <Select.Option key={users.id} value={users.id}>
-              {users.name}
-            </Select.Option>
-          ))}
-        </Select>
-      </div>
-    </form>
+          options={listOption}
+        />
+      </Form.Item>
+    </Form>
   );
 };
